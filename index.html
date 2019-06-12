@@ -10,24 +10,16 @@
     <main id="main">
       <script id="recipe-form-template" type="text/x-handlebars-template">
         <form id="recipe-form" onsubmit="handleSubmit();return false;">
-          Name: <input type="text" id="recipe-name"> <br>
-          Description: <input type="textarea" id="recipe-descr"> <br>
+          Name: <input type="text" id="recipe-name"> {{name}} <br>
+          Description: <input type="textarea" id="recipe-descr">{{recipeDescr}} <br>
           Ingredients: <br>
-          <input type="text" name="ingredient"><br>
-          <input type="text" name="ingredient"><br>
-          <input type="text" name="ingredient"><br>
-          <input type="text" name="ingredient"><br>
-          <input type="text" name="ingredient"><br>
+          {{#each ingredients}}
+            <input type="text" name="ingredient">{{this}}<br>
+          {{/each}}
           <input type="submit">
         </form>
       </script>
       <div id="recipes"></div>
-
-      <script id="recipes-template" type="text/x-handlebars-template">
-        {{#each}}
-          <div><div>
-        {{/each}}
-      </script>
 
       <script id="recipe-template" type="text/x-handlebars-template">
         <header id="recipeName">{{name}}</header>
@@ -40,7 +32,7 @@
           <p>{{recipeDescr}}<p>
           <ul class='ingredients_list'>
             {{#each ingredients}}
-              {{displayIngredient}}
+              <li name="ingredients">{{displayIngredient this}}</li>
             {{/each}}
           </ul>
         </div>
