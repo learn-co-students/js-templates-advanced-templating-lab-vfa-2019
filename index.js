@@ -15,8 +15,6 @@ function init() {
   var mainContainer = document.getElementsByTagName('main')[0];
   mainContainer.innerHTML += formHTML;
 
-  var recipesContainer = '<div id=\'recipes\'></div>';
-  mainContainer.innerHTML += recipesContainer;
 
   //move this to where 'this' object is defined?
   Handlebars.registerPartial('recipeDetailsPartial',document.getElementById('recipe-details-partial').innerHTML);
@@ -32,13 +30,14 @@ function init() {
 }
 
 function handleSubmit(){
-  let recipeName = document.getElementById("recipe-name").value;
-  let recipeDescr = document.getElementById("recipe-descr").value;
+  let recipeName = document.getElementById("name").value;
+  let recipeDescr = document.getElementById("description").value;
   let allIngredients = [];
 
-  document.getElementsByName('ingredient').forEach(function(ingredient){
-    allIngredients.push(ingredient.value);
-  });
+  let ingredientNodes = document.getElementsByName('ingredients');
+  for (var i=0; i < ingredientNodes.length; i++){
+    allIngredients.push(ingredientNodes[i].value)
+  }
 
   let recipe = {
     name: recipeName,
@@ -52,7 +51,7 @@ function handleSubmit(){
   let recipeTemplateFn = Handlebars.compile(recipeTemplate);
   let recipeHTML = recipeTemplateFn(recipe);
 
-  document.getElementById('recipes').innerHTML += recipeHTML;
+  document.getElementById('main').innerHTML = recipeHTML;
 }
 
 
@@ -63,12 +62,14 @@ function displayEditForm(){
   let recipe = {};
 
   recipe.name = document.getElementById('recipeName').innerHTML;
-  recipe.recipeDescr = document.getElementById('recipeDescription').innerHTML;
-  recipe.ingredients = [];
+  recipe.description = document.getElementById('recipeDescription').innerHTML;
+  let allIngredients = [];
 
-  document.getElementsByName('ingredients').forEach(function(ingredient){
-    recipe.ingredients.push(ingredient.innerHTML);
-  });
+  let ingredientNodes = document.getElementsByName('ingredients');
+  for (var i=0; i < ingredientNodes.length; i++){
+    allIngredients.push(ingredientNodes[i].value);
+  }
 
+  recipe.ingredients = allIngredients;
   let recipeFormHTML = recipeFormTemplateFn(recipe);
 }
