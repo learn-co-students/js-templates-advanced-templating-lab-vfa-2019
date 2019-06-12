@@ -72,4 +72,6 @@ function displayEditForm(){
 
   recipe.ingredients = allIngredients;
   let recipeFormHTML = recipeFormTemplateFn(recipe);
+
+  document.getElementById('main').innerHTML = recipeHTML;
 }
