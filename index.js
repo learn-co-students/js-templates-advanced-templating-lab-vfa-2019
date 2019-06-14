@@ -8,17 +8,12 @@ function init() {
   //put any page initialization/handlebars initialization here
   var recipeFormTemplateFn = Handlebars.compile(document.getElementById('recipe-form-template').innerHTML);
   var formHTML = recipeFormTemplateFn({
-    name: '',
-    recipeDescr: '',
     ingredients:['','','','','']
   });
   var mainContainer = document.getElementsByTagName('main')[0];
   mainContainer.innerHTML = formHTML;
 
-
-  //move this to where 'this' object is defined?
   Handlebars.registerPartial('recipeDetailsPartial',document.getElementById('recipe-details-partial').innerHTML);
-
   Handlebars.registerHelper('displayIngredient',function(ingredient){
     let newIngredient = '<li name="ingredients">'+ingredient+'</li>';
     return new Handlebars.SafeString(newIngredient);
@@ -51,7 +46,7 @@ function handleSubmit(){
   let recipeTemplateFn = Handlebars.compile(recipeTemplate);
   let recipeHTML = recipeTemplateFn(recipe);
 
-  document.getElementById('main').innerHTML += recipeHTML;
+  document.getElementById('main').innerHTML = recipeHTML;
 }
 
 
@@ -66,8 +61,8 @@ function displayEditForm(){
   let allIngredients = [];
 
   let ingredientNodes = document.getElementsByName('ingredients');
-  for (var i=0; i < ingredientNodes.length; i++){
-    allIngredients.push(ingredientNodes[i].value);
+  for (var i=0; i < ingredientNodes.length ; i++){
+    allIngredients.push(ingredientNodes[i].innerHTML);
   }
 
   recipe.ingredients = allIngredients;
