@@ -13,7 +13,7 @@ function init() {
     ingredients:['','','','','']
   });
   var mainContainer = document.getElementsByTagName('main')[0];
-  mainContainer.innerHTML += formHTML;
+  mainContainer.innerHTML = formHTML;
 
 
   //move this to where 'this' object is defined?
@@ -51,7 +51,7 @@ function handleSubmit(){
   let recipeTemplateFn = Handlebars.compile(recipeTemplate);
   let recipeHTML = recipeTemplateFn(recipe);
 
-  document.getElementById('main').innerHTML = recipeHTML;
+  document.getElementById('main').innerHTML += recipeHTML;
 }
 
 
@@ -73,5 +73,5 @@ function displayEditForm(){
   recipe.ingredients = allIngredients;
   let recipeFormHTML = recipeFormTemplateFn(recipe);
 
-  document.getElementById('main').innerHTML = recipeHTML;
+  document.getElementById('main').innerHTML = recipeFormHTML;
 }
